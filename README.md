@@ -1,7 +1,7 @@
 # NICMananger
 
 ## Introduction 
-<img align="right" src="https://raw.githubusercontent.com/exteran/nicmanager/main/img/nicmanager_queryform.jpg" alt="NICManager">This software is designed to digitize law enforcement records on local systems and servers for ease of access by personnel needing access to NCIC NIC file entries for records look-up, file maintenance, and hit confirmation request and response purposes. Many agencies still use hard copies (paper filing) for its NIC entry files, and personnel must search--by hand--the archive in order to find the relevant records. Digitizing these records can speed up the process of locating valid files quickly and easily.
+<img align="right" src="https://raw.githubusercontent.com/exteran/nicmanager/main/img/nicmanager_queryform.jpg" alt="NICManager">This software is designed to digitize law enforcement records on local systems and servers for ease of access by personnel needing access to NCIC NIC file entries for records look-up, file maintenance, and hit confirmation request and response purposes. Many agencies still use hard copies (paper filing) for NIC entry files, and personnel must search--by hand--the archive in order to find the relevant records. Digitizing these records can speed up the process of locating valid files quickly and easily.
 
 ## About
 
@@ -22,6 +22,13 @@ This application was designed as a Windows desktop application using Visual Stud
 - Charset: UTF-8 Unicode (utf8mb4)
 
 ## Changelog
+
+### Version 0.04 - 9/30/2022
+
+- Rename legacy repo to nicmanager_old.
+- Merge all branches into main branch in new repo.
+- Design basic setup form.
+- Design configurator/installation and setup workflow.
 
 ### Version 0.03 - 9/23/2022 
 
