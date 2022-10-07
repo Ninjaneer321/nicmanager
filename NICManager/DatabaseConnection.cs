@@ -20,7 +20,8 @@ namespace NICManager
                 Console.WriteLine("Connection established.");
                 configConn.Close();
                 return true;
-                /* MySqlCommand command = new MySqlCommand(Query.loginQuery, configConn);
+                /* Saving this to move out of this class to a generic handler object.
+                 * MySqlCommand command = new MySqlCommand(Query.loginQuery, configConn);
                 command.Parameters.AddWithValue("@username", username);
                 command.Parameters.AddWithValue("@password", hashedPassword);
                 Int32 match = (Int32) command.ExecuteScalar();

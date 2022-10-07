@@ -18,6 +18,7 @@ namespace NICManager
         public string GetHash(string inputString) => NewHash(inputString);
 
         // newHash is isolated so that it can be overrided to other encryption algorithms if desired.
+        // virtual indicates that an override public string method can be created in an extended child class.
         virtual public string NewHash(string inputString)
         {
 

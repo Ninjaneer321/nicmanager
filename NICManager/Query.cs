@@ -19,8 +19,8 @@ namespace NICManager
          */
         public static string dbServer =         "localhost";
         public static string dbDatabase =       "nicdb";
-        public static string dbUser =           "configUser";
-        public static string dbPassword =       "configPassword1";
+        public static string dbUser =           "configUser";       // Default User
+        public static string dbPassword =       "configPassword1";  // Default Password
 
         public static string configConnect =    "server=" + dbServer + 
                                                 ";database=" + dbDatabase + 
