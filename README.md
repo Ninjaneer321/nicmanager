@@ -23,6 +23,15 @@ This application was designed as a Windows desktop application using Visual Stud
 
 ## Changelog
 
+### Version 0.06 - 10/07/2022
+
+- Design data lookup tool for records existing in database.
+- Plan record entry form and process.
+- Refine database model.
+- Prepare SQL for deployment to various database systems.
+  - Plans to allow for Microsoft SQL Server, MySQL Database, and MariaDB. Possibly other options.
+- Refine setup process and installation procedure.
+
 ### Version 0.04 - 9/30/2022
 
 - Rename legacy repo to nicmanager_old.
