@@ -11,8 +11,6 @@ namespace NICManager
 
         public bool ConfigLoginDb()
         {
-            // Checks if user has valid credentials, and then enables NICManager functionality if true
-            //hashedPassword = authenticator.GetHash(password);
             MySqlConnection configConn = new MySqlConnection(Query.configConnect);
             try
             {
@@ -20,49 +18,27 @@ namespace NICManager
                 Console.WriteLine("Connection established.");
                 configConn.Close();
                 return true;
-                /* Saving this to move out of this class to a generic handler object.
-                 * MySqlCommand command = new MySqlCommand(Query.loginQuery, configConn);
-                command.Parameters.AddWithValue("@username", username);
-                command.Parameters.AddWithValue("@password", hashedPassword);
-                Int32 match = (Int32) command.ExecuteScalar();
-                if (match == 1) {
-                    MessageBox.Show("Login Successful.");
-                    configConn.Close();
-                    return true;
-                } else
-                {
-                    MessageBox.Show("Login Failed.");
-                    configConn.Close();
-                    return false;
-                }*/
             }
             catch (Exception ex)
             {
-                //lblStatusQuery.ForeColor = Color.Red;
-                //lblStatusQuery.Text = "Could not connect to database: " + ex.Message + " Contact support.";
-                //lblStatusQuery.Visible = true;
-                Console.WriteLine("Connection failed.");
+                Console.WriteLine("Connection failed. Error: " + ex);
                 return false;
             }
         }
-        public bool UserLoginDb(string username, string password)
+        public MySqlConnection UserLoginDb(string username, string password)
         {
-            MySqlConnectionStringBuilder connectionString = new MySqlConnectionStringBuilder();
-            connectionString.Server = Query.dbServer;
-            connectionString.Database = Query.dbDatabase;
-            connectionString.UserID = username;
-            connectionString.Password = authenticator.GetHash(password);
+            MySqlCommand userLoginQuery = new MySqlCommand(Query.userConnect);
+            userLoginQuery.Parameters.AddWithValue("@username", username);
+            userLoginQuery.Parameters.AddWithValue("@password", authenticator.GetHash(password));
+            MySqlConnection userConnect = new MySqlConnection(userLoginQuery.ToString());
 
-            MySqlConnection conn = new MySqlConnection(connectionString.ToString());
-            try
-            {
-                conn.Open();
-                conn.Close();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
+            try { 
+                Int32 match = (Int32) userLoginQuery.ExecuteScalar();
+                MessageBox.Show("Connection successful.");
+                return userConnect;
+            } catch (Exception ex) {
+                MessageBox.Show("Connection failed. Error: " + ex);
+                return null;
             }
         }
     }

@@ -17,16 +17,19 @@ namespace NICManager
          * complete, this user will be deleted from the database and only the superuser (or another administrator) will
          * be able to access the administrative functions.
          */
-        public static string dbServer =         "localhost";
-        public static string dbDatabase =       "nicdb";
-        public static string dbUser =           "configUser";       // Default User
-        public static string dbPassword =       "configPassword1";  // Default Password
+        public static string dbServer = "localhost";
+        public static string dbDatabase = "nicdb";
+        public static string dbUser = "configUser";       // Default User
+        public static string dbPassword = "configPassword1";  // Default Password
 
-        public static string configConnect =    "server=" + dbServer + 
-                                                ";database=" + dbDatabase + 
-                                                ";uid=" + dbUser +
-                                                ";pwd=" + dbPassword +";";
-
+        public static string configConnect = "server=" + dbServer +
+                                             ";database=" + dbDatabase +
+                                             ";uid=" + dbUser +
+                                             ";pwd=" + dbPassword + ";";
+        public static string userConnect = "server=" + dbServer +
+                                                ";database=" + dbDatabase +
+                                                ";uid=@username" +
+                                                ";pwd=@password";                
         /*
          * DATABASE PRODUCTION SETTINGS
          * These queries are designed for databases in production mode that have completed the configuration process.
