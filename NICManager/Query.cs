@@ -26,10 +26,10 @@ namespace NICManager
                                              ";database=" + dbDatabase +
                                              ";uid=" + dbUser +
                                              ";pwd=" + dbPassword + ";";
-        public static string userConnect = "server=" + dbServer +
-                                                ";database=" + dbDatabase +
-                                                ";uid=@username" +
-                                                ";pwd=@password";                
+        public static string userConnect =   "server=" + dbServer +
+                                             ";database=" + dbDatabase +
+                                             ";uid=@username" +
+                                             ";pwd=@password" + ";";                
         /*
          * DATABASE PRODUCTION SETTINGS
          * These queries are designed for databases in production mode that have completed the configuration process.

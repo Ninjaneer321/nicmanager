@@ -12,26 +12,33 @@ namespace NICManager
 {
     public partial class NICManagerMDI : Form
     {
+        DatabaseConnection dbConnection = new DatabaseConnection();
         private int childFormNumber = 0;
         public string loginToken, username;
         public NICManagerMDI()
         {
             InitializeComponent();
-            DatabaseConnection db = new DatabaseConnection();
-            if (db.ConfigLoginDb())
+            try
             {
-                Console.WriteLine("Starting configuration routine...");
-                Form formConfig = new formConfig();
-                formConfig.MdiParent = this;
-                formConfig.Show();
-                return;
+                if (dbConnection.ConfigLoginDb())
+                {
+                    Form formConfig = new formConfig();
+                    formConfig.MdiParent = this;
+                    formConfig.Show();
+                    Console.WriteLine("Found configuration defaults. Starting configurator...");
+                }
+                else
+                {
+                    Form formLogin = new formLogin();
+                    formLogin.MdiParent = this;
+                    formLogin.Show();
+                    Console.WriteLine("Did not find configuration defaults. Starting login system...");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Form formLogin = new formLogin();
-                formLogin.MdiParent = this;
-                formLogin.Show();
-                Console.WriteLine("Configuration data not present. Continuing...");
+                Console.WriteLine(ex.Message);
+                return;
             }
         }
 
@@ -127,6 +134,11 @@ namespace NICManager
             Form formAbout = new formAbout();
             formAbout.MdiParent = this;
             formAbout.Show();
+        }
+
+        private void NICManagerMDI_Load(object sender, EventArgs e)
+        {
+          
         }
 
         private void loginToolStripMenuItem_Click(object sender, EventArgs e)

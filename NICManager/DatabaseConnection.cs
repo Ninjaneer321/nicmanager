@@ -8,7 +8,6 @@ namespace NICManager
     internal class DatabaseConnection
     {
         Authenticator authenticator = new Authenticator();
-
         public bool ConfigLoginDb()
         {
             MySqlConnection configConn = new MySqlConnection(Query.configConnect);

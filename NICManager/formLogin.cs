@@ -12,6 +12,7 @@ namespace NICManager
 {
     public partial class formLogin : Form
     {
+        private string username, password, passwordHash;
         public formLogin()
         {
             InitializeComponent();
@@ -20,6 +21,21 @@ namespace NICManager
         private void btnLogin_Click(object sender, EventArgs e)
         {
 
+        }
+
+        public string GetUsername() {
+            return username;
+        }
+
+        public string GetPassword() {
+            return password;
+        }
+
+        public void SetUsername(string username) {
+            username = username.Trim();
+        }
+        public void SetPassword(string password) {
+            password = password.Trim();
         }
     }
 }
