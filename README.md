@@ -23,6 +23,15 @@ This application was designed as a Windows desktop application using Visual Stud
 
 ## Changelog
 
+### Version 0.07 - 10/13/2022
+
+It's been a few days since any updates. I have been working on the code along with other things and was too busy to put time into the changelog. I expect a much larger update this weekend.
+
+- Finalize database model.
+- Represent database model programatically in code for reference queries.
+ - Design key-value pair dictionary collection for reference tables and columns so that they can be modified by others later (a less hard-coded solution).
+- Refine setup process and installation procedure (further).
+
 ### Version 0.06 - 10/07/2022
 
 - Design data lookup tool for records existing in database.
