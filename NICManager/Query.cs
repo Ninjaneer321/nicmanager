@@ -17,32 +17,49 @@ namespace NICManager
          * complete, this user will be deleted from the database and only the superuser (or another administrator) will
          * be able to access the administrative functions.
          */
-        public static string dbServer = "localhost";
-        public static string dbDatabase = "nicdb";
-        public static string dbUser = "configUser";       // Default User
-        public static string dbPassword = "configPassword1";  // Default Password
+        public static string dbServer = "localhost";            // Server hostname or IP address
+        public static string dbDatabase = "nicdb";              // Database Name
+        public static string dbUser = "configUser";             // Default User
+        public static string dbPassword = "configPassword1";    // Default Password
 
+        // Default configuration connection.
         public static string configConnect = "server=" + dbServer +
                                              ";database=" + dbDatabase +
                                              ";uid=" + dbUser +
                                              ";pwd=" + dbPassword + ";";
-        public static string userConnect =   "server=" + dbServer +
-                                             ";database=" + dbDatabase +
-                                             ";uid=@username" +
-                                             ";pwd=@password" + ";";                
+        
+        // Default defines for table names in database. These can be changed but must also be changed in the database.
+        public static Dictionary<string, string> dbTables = new Dictionary<string, string>()
+        {
+            { "attach", "attachments" },
+            { "archiveAttach", "attachments_archive" },
+            { "lookupAttachEntries", "attachments_entries" },
+            { "entries", "entries" },
+            { "archiveEntries", "entries_archive" },
+            { "logsEntries", "logs_entries" },
+            { "logsMessages", "logs_messages" },
+            { "logsUsers", "logs_users" },
+            { "users", "users" }
+        };
+
         /*
          * DATABASE PRODUCTION SETTINGS
          * These queries are designed for databases in production mode that have completed the configuration process.
          */
 
-
+        // Default user connection with parameters.
+        public static string userConnect = "server=" + dbServer +
+                                           ";database=" + dbDatabase +
+                                           ";uid=@username" +
+                                           ";pwd=@password" + ";";
 
         /* 
          * DATABASE CONNECTION OPERATOR QUERIES
          * These queries are used by operators to select and manipulate records.
          */
 
-
+        public static string queryRecordByNIC = "SELECT 1 FROM " + dbTables["entries"] + " WHERE nic=@nic;";
+        public static string queryRecordByCase = "SELECT 1 FROM " + dbTables["entries"] + " WHERE caseNumber=@caseNumber;";
 
         /*
          * DATABASE CONNECTION ADMINISTRATOR QUERIES
