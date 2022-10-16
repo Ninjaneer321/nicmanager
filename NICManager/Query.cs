@@ -27,8 +27,8 @@ namespace NICManager
              * can be accessed via the internet), caching_sha2_password is a better option but could cause issues in some configurations.
              */
 
-        // Default configuration connection.
-        public static string configConnect = "server=" + dbServer +
+            // Default configuration connection.
+            public static string configConnect = "server=" + dbServer +
                                                  ";database=" + dbDatabase +
                                                  ";uid=" + dbUserDefault +
                                                  ";pwd=" + dbPasswordDefault + ";";
@@ -74,9 +74,9 @@ namespace NICManager
 
             // Default user connection with parameters.
             public static string userConnect = "server=" + dbServer +
-                                           ";database=" + dbDatabase +
-                                           ";uid=@username" +
-                                           ";pwd=@password" + ";";
+                                               ";database=" + dbDatabase +
+                                               ";uid=@username" +
+                                               ";pwd=@password" + ";";
 
         /* 
          * DATABASE CONNECTION OPERATOR QUERIES
@@ -84,7 +84,7 @@ namespace NICManager
          */
 
             // Select a single record found by NIC number
-            public static string queryRecordByNIC = "SELECT 1 FROM " + dbTables["entries"] + " WHERE nic=@nic;";
+            public static string queryRecordByNIC =  "SELECT 1 FROM " + dbTables["entries"] + " WHERE nic=@nic;";
             // Selectm a single record found by case number
             public static string queryRecordByCase = "SELECT 1 FROM " + dbTables["entries"] + " WHERE caseNumber=@caseNumber;";
 
@@ -94,19 +94,19 @@ namespace NICManager
          */
 
             // Create a standard user. Standard users are allowed to: insert, update, and select records.
-            public static string adminCreateUser = "CREATE USER '@username'@'" + dbServer + "' IDENTIFIED WITH " + dbAuthPlugin + "BY '@password';" +
-                                                   "GRANT INSERT, UPDATE, SELECT, on *.* TO '@username'@'" + dbServer + "';" +
-                                                   "FLUSH PRIVILEGES;";
-        // Create an administrator. Administrator users are allowed to: all except drop database and alter table structures.
-        public static string adminCreateAdmin = "CREATE USER '@username'@'" + dbServer + "' IDENTIFIED WITH " + dbAuthPlugin + "BY '@password';" +
-                                                "GRANT INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD on *.* TO '@username'@'" + dbServer + "';" +
-                                                "FLUSH PRIVILEGES;";
-        // Create a super user. Super users are allowed to: full control of database.
-        public static string adminCreateSuper = "CREATE USER '@username'@'" + dbServer + "' IDENTIFIED WITH " + dbAuthPlugin + "BY '@password';" +
-                                                "GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD on *.* TO '@username'@'" + dbServer + "' WITH GRANT OPTION;" +
-                                                "FLUSH PRIVILEGES;";
-        // Remove a user.
-        public static string adminRemoveUser = "REVOKE ALL PRIVILEGES, GRANT OPTION FROM '@username'@'" + dbServer + "';" +
-                                               "DROP USER IF EXISTS '@username'@'" + dbServer + "';";
+            public static string adminCreateUser =  "CREATE USER '@username'@'" + dbServer + "' IDENTIFIED WITH " + dbAuthPlugin + "BY '@password';" +
+                                                    "GRANT INSERT, UPDATE, SELECT, on *.* TO '@username'@'" + dbServer + "';" +
+                                                    "FLUSH PRIVILEGES;";
+            // Create an administrator. Administrator users are allowed to: all except drop database and alter table structures.
+            public static string adminCreateAdmin = "CREATE USER '@username'@'" + dbServer + "' IDENTIFIED WITH " + dbAuthPlugin + "BY '@password';" +
+                                                    "GRANT INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD on *.* TO '@username'@'" + dbServer + "';" +
+                                                    "FLUSH PRIVILEGES;";
+            // Create a super user. Super users are allowed to: full control of database.
+            public static string adminCreateSuper = "CREATE USER '@username'@'" + dbServer + "' IDENTIFIED WITH " + dbAuthPlugin + "BY '@password';" +
+                                                    "GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD on *.* TO '@username'@'" + dbServer + "' WITH GRANT OPTION;" +
+                                                    "FLUSH PRIVILEGES;";
+            // Remove a user.
+            public static string adminRemoveUser =  "REVOKE ALL PRIVILEGES, GRANT OPTION FROM '@username'@'" + dbServer + "';" +
+                                                    "DROP USER IF EXISTS '@username'@'" + dbServer + "';";
     }
 }
