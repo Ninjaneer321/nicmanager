@@ -17,13 +17,18 @@ namespace NICManager
          * complete, this user will be deleted from the database and only the superuser (or another administrator) will
          * be able to access the administrative functions.
          */
-            public static string dbServer = "localhost";            // Server hostname or IP address
-            public static string dbDatabase = "nicdb";              // Database Name
-            public static string dbUserDefault = "configUser";             // Default User
-            public static string dbPasswordDefault = "configPassword1";    // Default Password
+            public static string dbServer = "localhost";                 // Server hostname or IP address
+            public static string dbDatabase = "nicdb";                   // Database Name
+            public static string dbUserDefault = "configUser";           // Default User
+            public static string dbPasswordDefault = "configPassword1";  // Default Password
+            // Default Authentication Plugin.
+            public static string dbAuthPlugin = "mysql_native_password";
+            /* mysql_native_password is the most cross-compatible, general-use authenticator plugin. If you require stronger security (i.e. the database is available outside the DMZ or
+             * can be accessed via the internet), caching_sha2_password is a better option but could cause issues in some configurations.
+             */
 
-            // Default configuration connection.
-            public static string configConnect = "server=" + dbServer +
+        // Default configuration connection.
+        public static string configConnect = "server=" + dbServer +
                                                  ";database=" + dbDatabase +
                                                  ";uid=" + dbUserDefault +
                                                  ";pwd=" + dbPasswordDefault + ";";
@@ -89,19 +94,19 @@ namespace NICManager
          */
 
             // Create a standard user. Standard users are allowed to: insert, update, and select records.
-            public static string adminCreateUser = "CREATE USER '@username'@'" + dbServer + "' IDENTIFIED WITH mysql_native_password BY '@password';" +
+            public static string adminCreateUser = "CREATE USER '@username'@'" + dbServer + "' IDENTIFIED WITH " + dbAuthPlugin + "BY '@password';" +
                                                    "GRANT INSERT, UPDATE, SELECT, on *.* TO '@username'@'" + dbServer + "';" +
                                                    "FLUSH PRIVILEGES;";
         // Create an administrator. Administrator users are allowed to: all except drop database and alter table structures.
-        public static string adminCreateAdmin = "CREATE USER '@username'@'" + dbServer + "' IDENTIFIED WITH mysql_native_password BY '@password';" +
-                                               "GRANT INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD on *.* TO '@username'@'" + dbServer + "';" +
-                                               "FLUSH PRIVILEGES;";
+        public static string adminCreateAdmin = "CREATE USER '@username'@'" + dbServer + "' IDENTIFIED WITH " + dbAuthPlugin + "BY '@password';" +
+                                                "GRANT INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD on *.* TO '@username'@'" + dbServer + "';" +
+                                                "FLUSH PRIVILEGES;";
         // Create a super user. Super users are allowed to: full control of database.
-        public static string adminCreateSuper = "CREATE USER '@username'@'" + dbServer + "' IDENTIFIED WITH mysql_native_password BY '@password';" +
-                                                   "GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD on *.* TO '@username'@'" + dbServer + "' WITH GRANT OPTION;" +
-                                                   "FLUSH PRIVILEGES;";
+        public static string adminCreateSuper = "CREATE USER '@username'@'" + dbServer + "' IDENTIFIED WITH " + dbAuthPlugin + "BY '@password';" +
+                                                "GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD on *.* TO '@username'@'" + dbServer + "' WITH GRANT OPTION;" +
+                                                "FLUSH PRIVILEGES;";
         // Remove a user.
         public static string adminRemoveUser = "REVOKE ALL PRIVILEGES, GRANT OPTION FROM '@username'@'" + dbServer + "';" +
-                                                   "DROP USER IF EXISTS '@username'@'" + dbServer + "';";
+                                               "DROP USER IF EXISTS '@username'@'" + dbServer + "';";
     }
 }
