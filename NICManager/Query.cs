@@ -19,16 +19,16 @@ namespace NICManager
          */
         public static string dbServer = "localhost";            // Server hostname or IP address
         public static string dbDatabase = "nicdb";              // Database Name
-        public static string dbUser = "configUser";             // Default User
-        public static string dbPassword = "configPassword1";    // Default Password
+        public static string dbUserDefault = "configUser";             // Default User
+        public static string dbPasswordDefault = "configPassword1";    // Default Password
 
         // Default configuration connection.
         public static string configConnect = "server=" + dbServer +
                                              ";database=" + dbDatabase +
-                                             ";uid=" + dbUser +
-                                             ";pwd=" + dbPassword + ";";
+                                             ";uid=" + dbUserDefault +
+                                             ";pwd=" + dbPasswordDefault + ";";
         
-        // Default defines for table names in database. These can be changed but must also be changed in the database.
+        // Default defines for table names in database. These values be changed but must also be changed in the database.
         public static Dictionary<string, string> dbTables = new Dictionary<string, string>()
         {
             { "attach", "attachments" },
@@ -58,12 +58,23 @@ namespace NICManager
          * These queries are used by operators to select and manipulate records.
          */
 
+        // Select a single record found by NIC number
         public static string queryRecordByNIC = "SELECT 1 FROM " + dbTables["entries"] + " WHERE nic=@nic;";
+        // Selectm a single record found by case number
         public static string queryRecordByCase = "SELECT 1 FROM " + dbTables["entries"] + " WHERE caseNumber=@caseNumber;";
 
         /*
          * DATABASE CONNECTION ADMINISTRATOR QUERIES
          * These queries are used by administrators to assert full control over the model.
          */
+
+        // Create a standard user.
+        public static string adminCreateUser = "CREATE USER '@username'@'" + dbServer + "' IDENTIFIED WITH mysql_native_password BY '@password';" +
+                                               "GRANT INSERT, UPDATE, SELECT, on *.* TO '@username'@'" + dbServer + "';" +
+                                               "FLUSH PRIVILEGES;";
+        // Create an administrator user.
+        public static string adminCreateAdmin = "CREATE USER '@username'@'" + dbServer + "' IDENTIFIED WITH mysql_native_password BY '@password';" +
+                                               "GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD on *.* TO '@username'@'" + dbServer + "' WITH GRANT OPTION;" +
+                                               "FLUSH PRIVILEGES;";
     }
 }
