@@ -17,58 +17,58 @@ namespace NICManager
          * complete, this user will be deleted from the database and only the superuser (or another administrator) will
          * be able to access the administrative functions.
          */
-        public static string dbServer = "localhost";            // Server hostname or IP address
-        public static string dbDatabase = "nicdb";              // Database Name
-        public static string dbUserDefault = "configUser";             // Default User
-        public static string dbPasswordDefault = "configPassword1";    // Default Password
+            public static string dbServer = "localhost";            // Server hostname or IP address
+            public static string dbDatabase = "nicdb";              // Database Name
+            public static string dbUserDefault = "configUser";             // Default User
+            public static string dbPasswordDefault = "configPassword1";    // Default Password
 
-        // Default configuration connection.
-        public static string configConnect = "server=" + dbServer +
-                                             ";database=" + dbDatabase +
-                                             ";uid=" + dbUserDefault +
-                                             ";pwd=" + dbPasswordDefault + ";";
+            // Default configuration connection.
+            public static string configConnect = "server=" + dbServer +
+                                                 ";database=" + dbDatabase +
+                                                 ";uid=" + dbUserDefault +
+                                                 ";pwd=" + dbPasswordDefault + ";";
         
-        // Default defines for table names in database. These values be changed but must also be changed in the database.
-        public static Dictionary<string, string> dbTables = new Dictionary<string, string>()
-        {
-            { "attach", "attachments" },
-            { "archiveAttach", "attachments_archive" },
-            { "lookupAttachEntries", "attachments_entries" },
-            { "entries", "entries" },
-            { "archiveEntries", "entries_archive" },
-            { "logsEntries", "logs_entries" },
-            { "logsMessages", "logs_messages" },
-            { "logsUsers", "logs_users" },
-            { "users", "users" }
-        };
+            // Default defines for table names in database. These values be changed but must also be changed in the database.
+            public static Dictionary<string, string> dbTables = new Dictionary<string, string>()
+            {
+                { "attach", "attachments" },
+                { "archiveAttach", "attachments_archive" },
+                { "lookupAttachEntries", "attachments_entries" },
+                { "entries", "entries" },
+                { "archiveEntries", "entries_archive" },
+                { "logsEntries", "logs_entries" },
+                { "logsMessages", "logs_messages" },
+                { "logsUsers", "logs_users" },
+                { "users", "users" }
+            };
 
-        // Default defines for column names in Attachments and Attachments Archive tables. These values be changed but must also be changed in the database.
-        public static Dictionary<string, string> dbFieldsAttach = new Dictionary<string, string>()
-        {
-            { "id", "id" },
-            { "name", "name" },
-            { "cat", "category" },
-            { "type", "fileType" },
-            { "filename", "fileName" },
-            { "location", "fileLocation" },
-            { "userid", "users_id" }
-        };
+            // Default defines for column names in Attachments and Attachments Archive tables. These values be changed but must also be changed in the database.
+            public static Dictionary<string, string> dbFieldsAttach = new Dictionary<string, string>()
+            {
+                { "id", "id" },
+                { "name", "name" },
+                { "cat", "category" },
+                { "type", "fileType" },
+                { "filename", "fileName" },
+                { "location", "fileLocation" },
+                { "userid", "users_id" }
+            };
 
-        // Default defines for column names in Users table. These values be changed but must also be changed in the database.
-        public static Dictionary<string, string> dbUsers = new Dictionary<string, string>()
-        {
-            { "id", "id" },
-            { "username", "username" },
-            { "created", "created" }
-        };
+            // Default defines for column names in Users table. These values be changed but must also be changed in the database.
+            public static Dictionary<string, string> dbUsers = new Dictionary<string, string>()
+            {
+                { "id", "id" },
+                { "username", "username" },
+                { "created", "created" }
+            };
 
         /*
          * DATABASE PRODUCTION SETTINGS
          * These queries are designed for databases in production mode that have completed the configuration process.
          */
 
-        // Default user connection with parameters.
-        public static string userConnect = "server=" + dbServer +
+            // Default user connection with parameters.
+            public static string userConnect = "server=" + dbServer +
                                            ";database=" + dbDatabase +
                                            ";uid=@username" +
                                            ";pwd=@password" + ";";
@@ -88,13 +88,20 @@ namespace NICManager
          * These queries are used by administrators to assert full control over the model.
          */
 
-            // Create a standard user.
+            // Create a standard user. Standard users are allowed to: insert, update, and select records.
             public static string adminCreateUser = "CREATE USER '@username'@'" + dbServer + "' IDENTIFIED WITH mysql_native_password BY '@password';" +
                                                    "GRANT INSERT, UPDATE, SELECT, on *.* TO '@username'@'" + dbServer + "';" +
                                                    "FLUSH PRIVILEGES;";
-            // Create an administrator user.
-            public static string adminCreateAdmin = "CREATE USER '@username'@'" + dbServer + "' IDENTIFIED WITH mysql_native_password BY '@password';" +
+        // Create an administrator. Administrator users are allowed to: all except drop database and alter table structures.
+        public static string adminCreateAdmin = "CREATE USER '@username'@'" + dbServer + "' IDENTIFIED WITH mysql_native_password BY '@password';" +
+                                               "GRANT INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD on *.* TO '@username'@'" + dbServer + "';" +
+                                               "FLUSH PRIVILEGES;";
+        // Create a super user. Super users are allowed to: full control of database.
+        public static string adminCreateSuper = "CREATE USER '@username'@'" + dbServer + "' IDENTIFIED WITH mysql_native_password BY '@password';" +
                                                    "GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD on *.* TO '@username'@'" + dbServer + "' WITH GRANT OPTION;" +
                                                    "FLUSH PRIVILEGES;";
+        // Remove a user.
+        public static string adminRemoveUser = "REVOKE ALL PRIVILEGES, GRANT OPTION FROM '@username'@'" + dbServer + "';" +
+                                                   "DROP USER IF EXISTS '@username'@'" + dbServer + "';";
     }
 }
